@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { ToDo } from './component/todo';
+import { useState } from 'react';
 
 function App() {
+  let [arr, setArr] = useState(["Gourav", "Sahil", "Aditi", "Kajal",])
+
+  function DeleteItem(index) {
+ 
+  let newArr = arr.filter((el,id)=> {
+    return id!==index
+  })
+  setArr(newArr)
+  }
+  function AddingElement(data) {
+    if(data!==""){
+    const newArr = [...arr]
+    newArr.push(data);
+    setArr([...newArr])
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {arr.map((el, index) => {
+        return <div  a= {index}>
+          <h1>{el}</h1>
+          <button onClick={()=>{DeleteItem(index)}}  >Delete</button>
+         </div>
+      })}
+       <ToDo onAdding={AddingElement} />
+      
     </div>
   );
 }
